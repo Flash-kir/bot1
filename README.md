@@ -17,11 +17,11 @@
 
     pip install -r requirenments.txt
 
-У кажите токены nasa и бота telegram в файле .env, предварительно выполнив команду:
+У кажите токены Dewman и бота telegram в файле .env, предварительно выполнив команду:
 
     cp example.env .env
 
 Запустите программу командой:
 
-    python cosmos_images_to_telegram.py -d [YYYY-MM-DD]
+    python dewman_bot.py -id id_чата
 
