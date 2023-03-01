@@ -33,12 +33,14 @@ def main():
             params = {}
             if timestamp != 0:
                 params['timestamp'] = timestamp
-            works = requests.get(
+            response = requests.get(
                 'https://dvmn.org/api/long_polling/',
                 headers=headers,
                 params=params,
                 timeout=90
                 )
+            response.raise_for_status()
+            works = response.json()
             if works['status'] == 'timeout':
                 timestamp = works['timestamp_to_request']
                 logger.debug(works['timestamp_to_request'])
