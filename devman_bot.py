@@ -13,16 +13,16 @@ logger = logging.getLogger('bot')
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-l',
-        '--login',
-        default='wolland',
-        help='user login telegram'
+        '-id',
+        '--user_id',
+        default='199351989',
+        help='user id telegram'
         )
     args = parser.parse_args()
     load_dotenv()
     devman_token = os.environ.get('DEVMAN_TOKEN')
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
-    login = f'@{args.login}'
+    user_id = f'{args.user_id}'
     bot = telegram.Bot(token=telegram_bot_token)
     timestamp = 0
     while True:
@@ -52,7 +52,7 @@ def main():
                     work_title = work['lesson_title']
                     work_url = work['lesson_url']
                     bot.send_message(
-                        chat_id=login,
+                        chat_id=user_id,
                         text=f'{work_status}: "{work_title}" ({work_url})'
                         )
                 logger.debug('Проверенные работы: ', works)
