@@ -22,7 +22,6 @@ def main():
     load_dotenv()
     devman_token = os.environ.get('DEVMAN_TOKEN')
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
-    user_id = f'{args.user_id}'
     bot = telegram.Bot(token=telegram_bot_token)
     timestamp = 0
     while True:
@@ -30,8 +29,9 @@ def main():
             headers = {
                 'Authorization': f'Token {devman_token}',
             }
-            params = {}
-            if timestamp != 0:
+            params = {
+            }
+            if timestamp:
                 params['timestamp'] = timestamp
             response = requests.get(
                 'https://dvmn.org/api/long_polling/',
@@ -46,13 +46,14 @@ def main():
                 logger.debug(works['timestamp_to_request'])
             elif works['status'] == 'found':
                 for work in works['new_attempts']:
+                    timestamp = work['timestamp']
                     work_status = 'Принята работа'
                     if work['is_negative']:
                         work_status = 'Возвращена на доработку работа'
                     work_title = work['lesson_title']
                     work_url = work['lesson_url']
                     bot.send_message(
-                        chat_id=user_id,
+                        chat_id=args.user_id,
                         text=f'{work_status}: "{work_title}" ({work_url})'
                         )
                 logger.debug('Проверенные работы: ', works)
