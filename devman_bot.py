@@ -5,7 +5,7 @@ import logging
 import requests
 import telegram
 from dotenv import load_dotenv
-from time import sleep
+from time import sleep, time
 
 logger = logging.getLogger('bot')
 
@@ -23,16 +23,15 @@ def main():
     devman_token = os.environ.get('DEVMAN_TOKEN')
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=telegram_bot_token)
-    timestamp = 0
+    timestamp = time()
     while True:
         try:
             headers = {
                 'Authorization': f'Token {devman_token}',
             }
             params = {
+                'timestamp': timestamp
             }
-            if timestamp:
-                params['timestamp'] = timestamp
             response = requests.get(
                 'https://dvmn.org/api/long_polling/',
                 headers=headers,
