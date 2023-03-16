@@ -58,7 +58,7 @@ def main():
         except requests.exceptions.HTTPError:
             logger.error('не удалось получить количество проверенных работ')
         except requests.exceptions.ReadTimeout:
-            logger.error('не удалось получить ответ сервера')
+            logging.error('не удалось получить ответ сервера')
         except requests.exceptions.ConnectionError:
             logger.error('нет связи с сервером')
             sleep(10)
