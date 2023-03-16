@@ -63,7 +63,7 @@ def main():
             logger.error('нет связи с сервером')
             sleep(10)
         except Exception as err:
-            logging.error(err, exc_info=True)
+            logger.error(err, exc_info=True)
 
 
 if __name__ == '__main__':
