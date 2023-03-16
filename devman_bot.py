@@ -62,6 +62,8 @@ def main():
         except requests.exceptions.ConnectionError:
             logger.error('нет связи с сервером')
             sleep(10)
+        except Exception as err:
+            logging.error(err, exc_info=True)
 
 
 if __name__ == '__main__':
@@ -74,7 +76,7 @@ if __name__ == '__main__':
         )
     args = parser.parse_args()
     logging.basicConfig(format="%(levelname)s[%(asctime)s]: %(message)s(%(pathname)s: %(funcName)s - line %(lineno)d)")
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.ERROR)
     load_dotenv()
     devman_token = os.environ.get('DEVMAN_TOKEN')
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
