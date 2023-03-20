@@ -1,9 +1,8 @@
 import os
-
-import argparse
 import logging
 import requests
 import telegram
+
 from dotenv import load_dotenv
 from time import sleep, time
 
@@ -28,21 +27,14 @@ logger = logging.getLogger('bot')
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '-id',
-        '--user_id',
-        default='199351989',
-        help='user id telegram'
-        )
-    args = parser.parse_args()
     logging.basicConfig(format="%(levelname)s[%(asctime)s]: %(message)s(%(pathname)s: %(funcName)s - line %(lineno)d)")
     logger.setLevel(logging.ERROR)
     load_dotenv()
+    telegram_chat_id = os.environ.get('CHAT_ID')
     devman_token = os.environ.get('DEVMAN_TOKEN')
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=telegram_bot_token)
-    handler = BotLogsHandler(telegram_bot_token, args.user_id)
+    handler = BotLogsHandler(telegram_bot_token, telegram_chat_id)
     logger.addHandler(handler)
     timestamp = time()
     while True:
@@ -73,7 +65,7 @@ def main():
                     work_title = work['lesson_title']
                     work_url = work['lesson_url']
                     bot.send_message(
-                        chat_id=args.user_id,
+                        chat_id=telegram_chat_id,
                         text=f'{work_status}: "{work_title}" ({work_url})'
                         )
                 logger.debug('Проверенные работы: ', works)
