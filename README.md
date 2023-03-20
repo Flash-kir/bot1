@@ -8,7 +8,7 @@
 Клонируйте реппозиторий:
 
 ```bash
-    git clone git@github.com:Flash-kir/bot1.git
+$ git clone git@github.com:Flash-kir/bot1.git
 ```
 
 Выполните команду:
