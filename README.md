@@ -50,7 +50,7 @@ $ docker build -t chat-bot .
 Запустите его(команда выполняется в папке с файлом `devman_bot.py`):
 
 ```bash
-$ docker run -d --env-file .env chat-bot
+$ docker run -d --env-file .env --name chat-bot chat-bot
 ```
 
 ### Клонирование и запуск образа на сервере
@@ -64,6 +64,6 @@ $ docker pull flashkir/chat-bot
 Запустите его
 
 ```bash
-$ /usr/bin/docker run -d --env-file {Полный путь до .env файла}.env flashkir/chat-bot
+$ /usr/bin/docker run -d --env-file {Полный путь до .env файла}.env --name chat-bot flashkir/chat-bot
 ```
 
